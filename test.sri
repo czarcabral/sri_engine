@@ -1,0 +1,16 @@
+FACT Father(Roger,John)
+FACT Mother(Marry,John)
+FACT Father(Roger,Albert)
+FACT Mother(Marry,Albert)
+FACT Father(Allen,Margret)
+FACT Mother(Margret,Robert)
+FACT Mother(Margret,Bob)
+RULE Parent($X,$Y):- OR Father($X,$Y) Mother($X,$Y)
+RULE GrandFather($X,$Y):- AND Father($X,$Z) Parent($Z,$Y)
+RULE GrandMother($X,$Y):- AND Mother($X,$Z) Mother($Z,$Y)
+RULE GrandMother($X,$Y):- AND Mother($X,$Z) Father($Z,$Y)
+INFERENCE GrandFather($X,$Y) # prints the results on the terminal
+INFERENCE GrandFather($X,$Y) GF # will declare the results under a fact with the name GF
+DROP GF # delete all the facts created by the previous inference statement
+DROP Parent # delete the Parent rule
+DUMP updated_family_relation.sri # generate a sri file of the current KB and RB
